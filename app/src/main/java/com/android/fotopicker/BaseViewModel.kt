@@ -10,35 +10,36 @@ import androidx.lifecycle.MutableLiveData
 
 class BaseViewModel(application: Application) : AndroidViewModel(application) {
 
-    var imageList = MutableLiveData<ArrayList<String>>()
+    var imageList = MutableLiveData<ArrayList<File>>()
 
 
-    fun getImages() {
-        imageList.value = getImagesPath(getApplication())
+    fun getImages(type: String) {
+        imageList.value = getImagesPath(getApplication(), type)
     }
 
 
-    fun getImagesPath(context: Context): ArrayList<String> {
-        val uri: Uri
-        val listOfAllImages = ArrayList<String>()
+    fun getImagesPath(context: Context, type: String): ArrayList<File> {
+        val uri: Uri = android.provider.MediaStore.Files.getContentUri("external")
+        val listOfAllImages = ArrayList<File>()
         val cursor: Cursor?
         val column_index_data: Int
-        val column_index_folder_name: Int
-        var PathOfImage: String? = null
-        uri = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-
+        var pathOfImage: String? = null
         val projection =
-            arrayOf(MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME)
+            arrayOf(MediaStore.MediaColumns.DATA)
 
-        cursor = context.contentResolver.query(uri, projection, null, null, null)
+        var selection = "_data LIKE '%$type'"
+        cursor = context.contentResolver.query(uri, projection, selection, null, null)
 
         column_index_data = cursor!!.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)
-        column_index_folder_name =
-            cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME)
         while (cursor.moveToNext()) {
-            PathOfImage = cursor.getString(column_index_data)
+            pathOfImage = cursor.getString(column_index_data)
 
-            listOfAllImages.add(PathOfImage)
+            listOfAllImages.add(
+                File(
+                    name = pathOfImage.takeLastWhile { it != '/' },
+                    path = pathOfImage
+                )
+            )
         }
         return listOfAllImages
     }

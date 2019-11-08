@@ -10,4 +10,17 @@
         app:showAsAction="never"></item>
 
 
+    <item
+        android:id="@+id/table"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="List"
+        app:showAsAction="never"></item>
+
+    <item
+        android:id="@+id/grid"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="Grid"
+        app:showAsAction="never"></item>
+
+
 </menu>

@@ -11,18 +11,19 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.android.fotopicker.App
+import com.android.fotopicker.File
 import com.android.fotopicker.R
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.recycler_view_element.view.*
 
 
-class ImageAdapter(imageList: List<String>) : RecyclerView.Adapter<ImageAdapter.UserViewHolder>() {
-    var imageList: List<String> = imageList
+class ImageAdapter(imageList: List<File>) : RecyclerView.Adapter<ImageAdapter.UserViewHolder>() {
+    var imageList: List<File> = imageList
     lateinit var context: Context
     var index = 1
     var positionList = mutableListOf<UserViewHolder>()
 
-    fun setItemList(items: List<String>) {
+    fun setItemList(items: List<File>) {
         this.imageList = items
         notifyDataSetChanged()
     }
@@ -42,10 +43,12 @@ class ImageAdapter(imageList: List<String>) : RecyclerView.Adapter<ImageAdapter.
 
 
         Glide.with(context)
-            .load(imageList[position])
+            .load(imageList[position].path)
             .centerCrop()
             .error(R.drawable.ic_launcher_background)
             .into(parent.imageView)
+
+        parent.name.text = imageList[position].name
 
 
         parent.itemView.setOnClickListener {
@@ -78,6 +81,7 @@ class ImageAdapter(imageList: List<String>) : RecyclerView.Adapter<ImageAdapter.
         var imageView: ImageView = view.imageView1
         var cardView: CardView = view.cardView
         var number: TextView = view.number
+        var name: TextView = view.name
     }
 }
 

@@ -7,16 +7,17 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.android.fotopicker.File
 import com.android.fotopicker.R
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.recycler_view_element.view.*
 
-class SimpleAdaptor(imageList: List<String>) :
+class SimpleAdaptor(imageList: List<File>) :
     RecyclerView.Adapter<SimpleAdaptor.UserViewHolder>() {
-    var imageList: List<String> = imageList
+    var imageList: List<File> = imageList
     lateinit var context: Context
 
-    fun setItemList(items: List<String>) {
+    fun setItemList(items: List<File>) {
         this.imageList = items
         notifyDataSetChanged()
     }
@@ -36,7 +37,7 @@ class SimpleAdaptor(imageList: List<String>) :
 
 
         Glide.with(context)
-            .load(imageList[position])
+            .load(imageList[position].path)
             .circleCrop()
             .skipMemoryCache(true)
             .error(R.drawable.ic_launcher_background)

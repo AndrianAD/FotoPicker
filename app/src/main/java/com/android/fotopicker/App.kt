@@ -10,7 +10,7 @@ class App : Application() {
 
 
     companion object {
-        var selectedImage = mutableListOf<String>()
+        var selectedImage = mutableListOf<File>()
     }
 
 

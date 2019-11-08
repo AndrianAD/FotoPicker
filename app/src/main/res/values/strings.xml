@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FotoPicker</string>
+
+
+    <string-array name="harmonica_key">
+        <item>.jpg</item>
+        <item>.pdf</item>
+        <item>.mp3</item>
+    </string-array>
+
 </resources>
