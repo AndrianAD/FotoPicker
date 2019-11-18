@@ -11,5 +11,7 @@ class FotoPicker {
 //    intent.putExtra(TYPE, type)
 //    this.startActivityForResult(intent, PICK_IMAGE)
         Toast.makeText(activity, "Hello From Photo Picker", Toast.LENGTH_LONG)
+
+
     }
 }
