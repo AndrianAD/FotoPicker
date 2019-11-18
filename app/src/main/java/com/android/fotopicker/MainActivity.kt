@@ -23,12 +23,6 @@ import java.util.*
 const val PICK_IMAGE = 1
 const val TYPE = "TYPE"
 
-fun Activity.startPicker(type: String) {
-    val intent = Intent(this, SecondActivity::class.java)
-    intent.putExtra(TYPE, type)
-    this.startActivityForResult(intent, PICK_IMAGE)
-}
-
 class MainActivity : AppCompatActivity() {
 
     private val STORAGE_PERMISSION_CODE = 2
